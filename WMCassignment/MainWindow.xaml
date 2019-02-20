@@ -7,8 +7,44 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Label Name="mylabel" Content="Label" HorizontalAlignment="Left" Margin="500,147,0,0" VerticalAlignment="Top" Height="31" Width="125"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="184,158,0,0" VerticalAlignment="Top" Width="105" Height="34" Click="Button_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="100px"></ColumnDefinition>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
+        <StackPanel HorizontalAlignment="Stretch" Margin="10,0,10,0">
+            <Label Content="Sender Input" HorizontalAlignment="Left" FontWeight="Bold"  Margin="0,50,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="inputTextbox"  HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="TextBox" Width="Auto" />
+            <Label Content="Sender Process" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,20,0,0"  VerticalAlignment="Top"/>
+            <DataGrid Name="sendTable" HorizontalAlignment="Stretch" Height="100" VerticalAlignment="Top" >
+                <DataGrid.Columns>
+                    <!--<DataGridTextColumn Header="InputCharacter"/>
+                    <DataGridTextColumn Header="ASCIIValue"/>
+                    <DataGridTextColumn Header="BinaryEquivalent"/>-->
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="Sender Output" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top"/>
+            <TextBox Name="binOutput" HorizontalAlignment="Stretch"  TextWrapping="Wrap" Text="TextBox" />
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Stretch" Grid.Column="2" Margin="10,0,10,0">
+            <Label Content="Receiver Input" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,50,0,0" VerticalAlignment="Top" />
+            <TextBox Name="binInput" HorizontalAlignment="Stretch"  TextWrapping="Wrap" Text="TextBox" />
+            <Label Content="Receiver Process" FontWeight="Bold" HorizontalAlignment="Stretch" Margin="0,20,0,0" VerticalAlignment="Top" />
+            <DataGrid Name="receiveTable" HorizontalAlignment="Stretch" Height="100" VerticalAlignment="Top" >
+                <DataGrid.Columns>
+                    <!--<DataGridTextColumn Header="Binary Equivalent(Byte)"/>
+                    <DataGridTextColumn Header="ASCII Value"/>
+                    <DataGridTextColumn Header="Input Character"/>-->
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="Receiver Output" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,20,0,0" VerticalAlignment="Top" />
+            <TextBox Name="outputTextbox" HorizontalAlignment="Stretch"  TextWrapping="Wrap" Text="TextBox" />
+
+        </StackPanel>
+
+
+        <Button Content="Send" HorizontalAlignment="Left" Margin="15,188,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="Button_Click" />
     </Grid>
 </Window>
