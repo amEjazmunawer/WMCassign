@@ -21,9 +21,9 @@ namespace WMCassignment
     /// </summary>
     public partial class MainWindow : Window
     {
-        inputDataGridList tableInput { get; set; }
-        string inputData { get; set; }
-        string BinaryOut { get; set; }
+        //inputDataGridList tableInput { get; set; }
+        //string inputData { get; set; }
+        //string BinaryOut { get; set; }
         public class outputDataGrid
         {
             public string Binary_Equivalent { get; set; }
@@ -95,36 +95,68 @@ namespace WMCassignment
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Dispatcher.BeginInvoke(new Action(() =>
+            Task.Run(new Action(() =>
             {
-                inputData = inputTextbox.Text;
+                inputDataGridList tableInput;
+                string inputData = "";
+                string BinaryOut;
+                Dispatcher.Invoke(() =>
+                {
+                    inputData= inputTextbox.Text;
+
+                });
+                 
 
                 tableInput = new inputDataGridList();
                  BinaryOut = "";
                 foreach (var c in inputData)
                 {
-                    tableInput.addData(c, c, Convert.ToString(c, 2).PadLeft(8, '0'));
-                    BinaryOut += Convert.ToString(c, 2).PadLeft(8, '0');
-                    
+                    Dispatcher.Invoke(() =>
+                    {
+                        tableInput.addData(c, c, Convert.ToString(c, 2).PadLeft(8, '0'));
+                        BinaryOut += Convert.ToString(c, 2).PadLeft(8, '0');
+                        sendTable.ItemsSource = tableInput.data;
+                        sendTable.Items.Refresh();
+                       
+                    });
+                    Thread.Sleep(1000);
+
                 }
 
-                sendTable.ItemsSource = tableInput.data;
 
-                binOutput.Text = BinaryOut;
+                Dispatcher.Invoke(() =>
+                {
+                    binOutput.Text = BinaryOut;
+                });
+                Thread.Sleep(1000);
 
-                binInput.Text = BinaryOut;
+                Dispatcher.Invoke(() =>
+                {
+                    binInput.Text = BinaryOut;
+                });
+                Thread.Sleep(1000);
+
 
                 outputDataGridList tableOutput = new outputDataGridList();
                 int i = 0;
                 foreach (var c in inputData)
                 {
                     tableOutput.addData(tableInput.data[i].Input_Character, tableInput.data[i].ASCII_Value, tableInput.data[i].Binary_Equivalent);
+                    Dispatcher.Invoke(() =>
+                    {
+                        receiveTable.ItemsSource = tableOutput.data;
+                        receiveTable.Items.Refresh();
+                    });
+                    Thread.Sleep(1000);
+
                     i++;
                 }
-                receiveTable.ItemsSource = tableOutput.data;
 
+                Dispatcher.Invoke(() =>
+                {
                 outputTextbox.Text = inputData;
-
+                });
+                Thread.Sleep(1000);
             }));
 
             
